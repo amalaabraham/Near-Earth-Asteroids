@@ -1,8 +1,18 @@
 import React from "react";
 import { useRoutes, navigate } from "hookrouter";
-import Asteroids from "../components/Common/Asteroids";
+import Asteroid from "../components/home";
+import AsteroidsFilter from "../components/AsteroidsFilter"
+import SearchById from "../components/SearchById";
+import SearchByDate from "../components/DateFilter";
 const routes = {
-    "/": () => <Asteroids />,
+    "/": () => <Asteroid />,
+    "/search": () => <SearchById />,
+    //"/": () => <Home />,
+   // "/login": () => <Login />,
+    //"/register": () => <Register />,
+    //"/profile": () => <Profile />,
+    "/datesearch": () => <SearchByDate />,
+    "/asteroid": () => <AsteroidsFilter />,
 };
 
 const PublicRouter = () => {
