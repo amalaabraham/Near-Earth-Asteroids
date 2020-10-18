@@ -1,27 +1,20 @@
 import React, {useState} from "react";
-import auth from ".../../firebase" 
+import { auth } from "../../firebase"; 
 import { navigate, A } from "hookrouter";
 import * as Notification from "../common/Notifications";
 
 
 const  Login = () => {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
 
     const signInWithEmailAndPasswordHandler = (event,email, password) => {
         event.preventDefault();
-        auth
-        .signInWithEmailAndPassword(email, password)
-        .then(navigate("/"))
-        .then(
-          Notification.Success({
-            msg: `User Logged in Successfully`,
-          })
-        )
-        .catch(error => {
-        setError("No active account exists with the given credentials");
-          console.error("Error signing in with the given password and email", error);
+        auth.signInWithEmailAndPassword(email, password).catch(error => {
+        setError("Error signing in with password and email!");
+          console.error("Error signing in with password and email", error);
         });
       };
       
