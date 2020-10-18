@@ -71,6 +71,7 @@ export default function ListAsteroids() {
   
   const handleChange = e => {
     setSearchId(e.target.value);
+    console.log(e.target.value)
     if (e.target.value == "") {
       setQueryId("");
     }
@@ -137,8 +138,3 @@ export default function ListAsteroids() {
 </div>
 
 )};
-
-
-
-
-

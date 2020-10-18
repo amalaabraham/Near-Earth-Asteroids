@@ -1,18 +1,23 @@
+
 import React from "react";
 import { useRoutes, navigate } from "hookrouter";
-import Asteroid from "../components/home";
-import AsteroidsFilter from "../components/AsteroidsFilter"
-import SearchById from "../components/SearchById";
-import SearchByDate from "../components/DateFilter";
+//import { useRoutes,Router } from "@reach/router";
+import Asteroid from "../components/Asteroids/home";
+import PublicNavBar from "../components/Navbars/PublicNavBar";
+import Login from "../components/Auth/Login"
+import Register from "../components/Auth/Register"
+//import AsteroidsFilter from ".../components/Asteroids/AsteroidsFilter"
+//import SearchById from "../components/Asteroids/SearchById";
+//import SearchByDate from "../components/Asteroids/DateFilter";
 const routes = {
     "/": () => <Asteroid />,
-    "/search": () => <SearchById />,
+   // "/search": () => <SearchById />,
     //"/": () => <Home />,
-   // "/login": () => <Login />,
-    //"/register": () => <Register />,
+    "/login": () => <Login />,
+    "/register": () => <Register />,
     //"/profile": () => <Profile />,
-    "/datesearch": () => <SearchByDate />,
-    "/asteroid": () => <AsteroidsFilter />,
+    //"/datesearch": () => <SearchByDate />,
+  //  "/asteroid": () => <AsteroidsFilter />,
 };
 
 const PublicRouter = () => {
@@ -20,6 +25,7 @@ const PublicRouter = () => {
     !pages && navigate("/");
     return (
         <div className="relative bg-gray-900  min-h-screen pb-24">
+             <PublicNavBar />
             {pages}
             {!pages && (
                 <div className="flex justify-center py-16">

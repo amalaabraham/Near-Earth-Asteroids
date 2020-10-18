@@ -1,4 +1,5 @@
 import React from "react";
+import ListAsteroids from "./ListAsteroids";
 
 const ErrorComponent = () => {
     return (
@@ -15,7 +16,7 @@ const ErrorComponent = () => {
                 </div>
             </div>
         </div>
-    );
+    ); 
 };
 
 export default ErrorComponent;
