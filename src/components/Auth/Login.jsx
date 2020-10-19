@@ -12,11 +12,12 @@ const  Login = () => {
 
     const signInWithEmailAndPasswordHandler = (event,email, password) => {
         event.preventDefault();
-        auth.signInWithEmailAndPassword(email, password).catch(error => {
+        auth.signInWithEmailAndPassword(email, password).then(navigate("/")).catch(error => {
         setError("Error signing in with password and email!");
           console.error("Error signing in with password and email", error);
         });
       };
+
       
       const onChangeHandler = (event) => {
           const {name, value} = event.currentTarget;

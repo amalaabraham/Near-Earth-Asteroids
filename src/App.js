@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import PublicRouter from "./router/PublicRouter";
-import AppRouter from "./router/AppRouter";
+import AppRouter from "./router/PrivateRouter";
+import UserProvider from "./components/Context/UserProvider";
+import { UserContext } from "./components/Context/UserProvider";
 import { useState, useEffect } from "react";
+import UserNavBar from "./components/Navbars/UserNavBar";
+import PublicNavBar from "./components/Navbars/PublicNavBar";
+
 
 function App() {
 
-  const user = null;
+  const user = useContext(UserContext);
+  console.log(user)
   return (
     user ?
-      <AppRouter/>
+    <AppRouter />
       :
-      <PublicRouter/>
+      <PublicRouter />
+      
   )
  /* const [user, setUser] = useState("");
   const authListener = () => {

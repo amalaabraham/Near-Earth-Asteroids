@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext  } from "react";
 import { A, navigate } from "hookrouter";
+import {auth} from "../../firebase";
+import { UserContext } from "../Context/UserProvider";
+
 
 export default function NavBar({ links, logout }) {
     const [shown, setShown] = useState(false);
+    const user = useContext(UserContext);
+    
 
     return (
         <nav className="flex items-center justify-between flex-wrap bg-gray-900">
@@ -56,20 +61,15 @@ export default function NavBar({ links, logout }) {
                         ))}
                 </div>
                 <div className="flex justify-end">
-                    {logout && (
-                        <A
-                            href="#"
-                            className="mr-16 lg:mr-0 inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                localStorage.setItem("stay_access_token", "");
-                                navigate("/");
-                                window.location.reload();
-                            }}>
-                            Logout
-                        </A>
-                    )}
-                </div>
+          {logout && (
+            <button
+            onClick = {() => {auth.signOut()}}
+              className="mr-16 lg:mr-0 inline-block text-base font-bold text-blue-700 px-4 py-2 bg-blue-200 leading-none border rounded text-white border-blue-700 hover:border-transparent hover:text-teal-500 hover:bg-blue-300 e mt-4 lg:mt-0"
+            >
+              Logout
+            </button>
+          )}
+        </div>
             </div>
         </nav>
     );
