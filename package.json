@@ -43,5 +43,17 @@
     "dotenv": "^8.2.0",
     "postcss-cli": "^8.1.0",
     "tailwindcss": "^1.9.1"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amalaabraham/Near-Earth-Asteroids.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amalaabraham/Near-Earth-Asteroids/issues"
+  },
+  "homepage": "https://github.com/amalaabraham/Near-Earth-Asteroids#readme"
 }
