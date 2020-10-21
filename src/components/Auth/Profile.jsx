@@ -8,13 +8,14 @@ import SearchById from "../Asteroids/SearchById"
 export default function Profile() {                         //profile
   const [asteroidIds, setAsteroidIds] = useState([]);
   const  user  = useContext(UserContext);
+  const [asteroidData, setAsteroidData] = useState([]);
   // const [loading, setloading] = useState(false);
 
   // setloading(true);
   useEffect(() => {
     firestore
       .collection("favourites")
-      .where("user_id", "==", user)                            //getting ids of user favourites
+      .where("user_id", "==", user)                            //getting ids of user
       .get()
       .then((querySnapshot) => {
         setAsteroidIds(querySnapshot.docs.map((doc) => doc.data().asteroid_id));
