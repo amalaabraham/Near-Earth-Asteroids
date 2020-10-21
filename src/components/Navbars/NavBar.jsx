@@ -3,7 +3,7 @@ import { A, navigate } from "hookrouter";
 import {auth} from "../../firebase";
 import { UserContext } from "../Context/UserProvider";
 
-
+//navbar
 export default function NavBar({ links, logout }) {
     const [shown, setShown] = useState(false);
     const user = useContext(UserContext);
@@ -47,14 +47,14 @@ export default function NavBar({ links, logout }) {
             <div
                 className={`w-full ${
                     shown ? "block" : "hidden"
-                } flex-grow lg:flex lg:items-center lg:w-auto lg:justify-center lg:bg-gray-900 bg-indigo-600 pb-6 lg:p-6`}>
+                } flex-grow lg:flex lg:items-center lg:w-auto lg:justify-center lg:bg-gray-900 bg-gray-900 pb-6 lg:p-6`}>
                 <div className="text-md font-bold lg:flex-grow flex flex-col lg:flex-row">
                     {links &&
                         links.map((el) => (
                             <A
                                 key={el.title}
                                 onClick={() => setShown(!shown)}
-                                className="block lg:inline-block lg:mt-0 text-gray-200 hover:text-white pr-20 lg:px-4 py-2 text-right lg:text-left lg:hover:bg-black hover:bg-indigo-500"
+                                className="block lg:inline-block lg:mt-0 text-gray-200 hover:text-white pr-20 lg:px-4 py-2 text-right lg:text-left lg:hover:bg-black hover:bg-gray-800"
                                 href={el.link}>
                                 {el.title}
                             </A>

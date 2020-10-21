@@ -1,34 +1,82 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import fire from "../../firebase";
 import { UserContext } from "../Context/UserProvider";
-import { navigate, A } from "hookrouter";
-import {auth} from "../../firebase";
+import ErrorComponent from "../Asteroids/ErrorComponent";
+import { firestore } from "../../firebase"; 
+import SearchById from "../Asteroids/SearchById"
 
+export default function Profile() {                         //profile
+  const [asteroidIds, setAsteroidIds] = useState([]);
+  const  user  = useContext(UserContext);
+  // const [loading, setloading] = useState(false);
 
-const ProfilePage = () => {
-  const user = useContext(UserContext);
-  const { displayName, email} = user;
-  console.log(user);
+  // setloading(true);
+  useEffect(() => {
+    firestore
+      .collection("favourites")
+      .where("user_id", "==", user)                            //getting ids of user favourites
+      .get()
+      .then((querySnapshot) => {
+        setAsteroidIds(querySnapshot.docs.map((doc) => doc.data().asteroid_id));
+        // setloading(false);
+      });
+    
+    var favs = [];
+    async function fetchAsteroids(asteroid_id) {
+        console.log("fun")
+            const res = await fetch(                                      //fetching data
+              `https://api.nasa.gov/neo/rest/v1/neo/${asteroid_id}?api_key=gaQXYLekzw7ngWH1cbjGSUY5Y0qkCGi1I0w4WSsE`
+            ).then((response) => {
+                if(response.status === 200) {
+                    console.log("success")
+                    
+                    return response;
+                }
+                else  if(response.status === 404){
+                    console.log("something went wrong")
+                    
+                }
+            });
+            const data = await res?.json();
+            console.log(data);
+            favs.push(data) 
+          }
+    asteroidIds.map((asteroid_id) => {
+        console.log("map")
+          fetchAsteroids(asteroid_id)
+    })
+    setAsteroidData(favs); 
+    
   
+  }, [user]);
+  console.log(asteroidIds);
+
+
+  /*{asteroidIds.map((asteroid_id) => {
+    return <SearchAsteroid key={asteroid_id} id={asteroid_id} />;
+  })}*/
+
+
 
   return (
-    <div className = "mx-auto w-11/12 md:w-2/4 py-8 px-4 md:px-8">
-      <div className="flex border flex-col items-center md:flex-row md:items-start border-blue-400 px-3 py-4">
-        <div
-          style={{
-            backgroundSize: "cover",
-            height: "200px",
-            width: "200px"
-          }}
-          className="border border-blue-300"
-        ></div>
-        <div className = "md:pl-4">
-        <h2 className = "text-2xl font-semibold">{displayName}</h2>
-        <h3 className = "italic">{email}</h3>
-        </div>
-      </div>
-      
-    </div>
-  ) 
-};
+    <div className="mx-auto  h-screen">
+        {asteroidIds.length === 0 ? (
+          <ErrorComponent />
+        ) : (
+          <div>
+              <div className="text-gray-400 text-3xl text-center m-2 font-bold">
+                Favourite Asteroids
+              </div>
+              {asteroidIds.map((queryid) => {
+                      return <SearchById key={queryid} id={queryid} />;
+                    })}
+                <div class="flex items-center justify-center mx-5" >
+                  <div class="flex flex-row flex-wrap mx-auto">
+                  </div>
+                </div>
 
-export default ProfilePage;
+          </div>
+        )}
+      </div>
+  );
+}

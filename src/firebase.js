@@ -33,14 +33,48 @@ export const generateUserDocument = async (user, additionalData) => {
       await userRef.set({
         displayName,
         email,
+    
        
         ...additionalData
-      });
+      }
+      );
+      
+
     } catch (error) {
       console.error("Error creating user document", error);
     }
   }
   return getUserDocument(user.uid);
+};
+
+export const addToFavs = async (user, id) => {
+  console.log("user",user)
+  console.log("id",id)
+  if (!user) return;
+
+  const userRef = firestore.doc(`users/${user.favs}`);
+  console.log("hi")
+  const snapshot = await userRef.get();
+  if (snapshot.exists) {
+    console.log("hey")
+   // const { id } = id;
+    try {
+      console.log("hey")
+      await userRef.update({
+           favs:id
+           
+      }
+      
+      )
+      .then(console.log("success"));      
+
+    } catch (error) {
+      console.error("Error creating user document", error);
+    }
+  }
+ 
+
+  return addToFavs(user.favs);
 };
 
 const getUserDocument = async uid => {
@@ -56,3 +90,6 @@ const getUserDocument = async uid => {
     console.error("Error fetching user", error);
   }
 };
+
+
+

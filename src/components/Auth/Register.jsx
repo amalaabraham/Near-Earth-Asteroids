@@ -2,17 +2,20 @@ import React, { useContext, useState } from "react";
 import { navigate, A } from "hookrouter";
 import { auth, signInWithGoogle, generateUserDocument } from "../../firebase";
 
-const SignUp = () => {
+const SignUp = () => {                                                //register
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [error, setError] = useState(null);
 
-  const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
+  const createUserWithEmailAndPasswordHandler = async (event, email, password) => {         //createuserwithemailpassword
     event.preventDefault();
     try{
       const {user} = await auth.createUserWithEmailAndPassword(email, password);
-      const id = generateUserDocument(user, {displayName});
+      generateUserDocument(user, {displayName});                                            //generates document in firebase.js
+      if (user) {
+        navigate("/profile")
+    }
     }
     catch(error){
       setError('Error Signing up with email and password');
@@ -44,16 +47,16 @@ const SignUp = () => {
           </div>
         )}
             <div>
-                <h2 className="lg:mt-4 mt-3 text-center text-xl lg:text-3xl leading-9 font-bold text-gray-800 uppercase">
-                   
+                <h2 className="lg:mt-4 mt-3 text-center text-xl lg:text-3xl leading-9 font-bold text-gray-400  uppercase">
+                   Create Account
                 </h2>
             </div>
             <form
                 
-                className="shadow rounded px-8 pt-6 pb-8 mt-10 my-20 bg-white">
+                className="shadow rounded px-8 pt-6 pb-8 mt-10 my-20 bg-gray-800 ">
                 <div className="mb-4">
                     <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-white text-sm font-bold mb-2"
                         htmlFor="displayName">
                         Name
                     </label>
@@ -65,7 +68,7 @@ const SignUp = () => {
                         value={displayName}
                         
                         id="displayName"
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-800  leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Your name"
                         onChange={event => onChangeHandler(event)}
                     />
@@ -75,7 +78,7 @@ const SignUp = () => {
                 </div>
                 <div className="mb-4">
                     <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-white text-sm font-bold mb-2"
                         htmlFor="userEmail">
                         Email
                     </label>
@@ -85,7 +88,7 @@ const SignUp = () => {
                         type="email"
                         value={email}
                         id="userEmail"
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                        className="appearance-none border rounded w-full py-2 px-3 text-white bg-gray-800  leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Email address"
                         onChange={event => onChangeHandler(event)}
                     />
@@ -93,10 +96,10 @@ const SignUp = () => {
                       
                     </div>
                 </div>
-                <div className="mb-4 md:flex md:justify-between">
-                    <div className="mb-4 md:mr-2 md:mb-0">
+                <div className="mb-4 ">
+                   
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-white text-sm font-bold mb-2"
                             htmlFor="userPassword">
                             Password
                         </label>
@@ -106,14 +109,14 @@ const SignUp = () => {
                             type="password"
                             value={password}
                             id="userPassword"
-                            className="appearance-none border  rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                            className="appearance-none border  rounded w-full py-2 px-3 text-white bg-gray-800  leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="******************"
                             onChange={event => onChangeHandler(event)}
                         />
                         <div className="text-xs italic text-red-500">
                            
                         </div>
-                    </div>
+                   
             
                 </div>
                 <div className="h-10">
@@ -143,13 +146,8 @@ const SignUp = () => {
                         Register
                     </button>
                     <div className="flex-row  ml-2 ">
-                        {/* <A
-                            className="inline-block align-baseline text-center  font-bold text-sm text-indigo-600 hover:text-indigo-800"
-                            href={"/" + links[user.otherlinkid]}>
-                            Register as {user.othertype}
-                        </A> */}
                         <A
-                            className="inline-block align-baseline font-bold text-center text-sm text-indigo-600 hover:text-indigo-800"
+                            className="inline-block align-baseline font-bold text-center text-sm text-blue-700 hover:text-blue-600"
                             href="/login">
                             Already have an account?
                         </A>
